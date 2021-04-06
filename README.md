@@ -8,9 +8,9 @@ Reference: PAPER LINK
 MetaGeneMark-2 is an unsupervised metagenomic gene finder. It improves on MetaGeneMark by adding models for better gene start prediction, as well as automatic selection of genetic code (4 or 11). The models for gene start prediction are based in part on the work done for GeneMarkS-2; they include Shine-Dalgarno RBS, non-Shine-Dalgarno (or non-canonical) RBS, and bacterial and archaeal promoter models (for use in cases of leaderless transcription).
 
 ## Installing MetaGeneMark-2 locally
-Running MetaGeneMark-2 using automatic genetic code detection is done through the `run_mgm.pl` script found in `$code/hmm_src`. The below compiles the C++ binary and copies all the relevant components to `$bin_external/mgm2_auto`.
+Running MetaGeneMark-2 using automatic genetic code detection is done through the `run_mgm.pl` script found in `src`.
 
-     cd src/hmm_src;
+     cd src;
      pf_makefile=Makefile.macos    # NOTE: change based on operating system
      make -f $pf_makefile
 
