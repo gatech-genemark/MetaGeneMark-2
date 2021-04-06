@@ -1,8 +1,15 @@
-# MetaGeneMark-2: Improved Gene Prediction in Metagenomes
+# MetaGeneMark-2
+
+MetaGeneMark-2: Improved Gene Prediction in Metagenomes
+
+Karl Gemayel, Alexandre Lomsadze* and Mark Borodovsky*
 
 Georgia Institute of Technology, Atlanta, Georgia, USA
 
+*joint last authors
+
 Reference: PAPER LINK
+
 
 ## Overview
 MetaGeneMark-2 is an unsupervised metagenomic gene finder. It improves on MetaGeneMark by adding models for better gene start prediction, as well as automatic selection of genetic code (4 or 11). The models for gene start prediction are based in part on the work done for GeneMarkS-2; they include Shine-Dalgarno RBS, non-Shine-Dalgarno (or non-canonical) RBS, and bacterial and archaeal promoter models (for use in cases of leaderless transcription).
