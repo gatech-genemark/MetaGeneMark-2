@@ -1,0 +1,27 @@
+# ====================================================
+# Author: Alex Lomsadze
+#
+# Copyright: Georgia Institute of Technology
+# Copyright: GeneProbe Inc.
+#
+# Project: GeneMark.hmm-2 (no introns)
+# ====================================================
+
+
+1. Compilation
+
+Boost libraries are used in this project.
+Static linking of libraries simplifies code distribution and usage on clusters.
+Makefiles are set for static linking, which is system dependent.
+
+Adjust Makefile to specific configuration of platform.
+
+make -f Makefile.topas
+make -f Makefile.topas clean
+make -f Makefile.topas distr
+
+2. Installation
+
+# ====================================================
+# done
+

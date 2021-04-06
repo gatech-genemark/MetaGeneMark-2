@@ -1,0 +1,54 @@
+# ====================================================
+# Author: Alex Lomsadze
+# 
+# Copyright: Georgia Institute of Technology
+# Copyright: GeneProbe Inc.
+# 
+# Project: GeneMark.hmm-2 (no introns)
+# File: Makefile.aws 
+# Amazon cloud amazon linux
+# ====================================================
+
+VER=1.06
+
+CXX = g++
+CXXFLAGS = -O2 -Wall -I. -I/usr/include/boost/
+LIBS = -L/usr/lib64/ -lboost_program_options -lboost_iostreams
+LDFLAGS = -lm  -lstdc++  -static
+
+SRCS = main.cpp \
+	data_2.cpp model_2.cpp parameter_parser_2.cpp parameters_2.cpp \
+	pset_2.cpp sequence_file_2.cpp sequence_map_2.cpp settings_2.cpp \
+	evidence_2.cpp site_2.cpp output_2.cpp
+
+OBJS = main.o \
+	data_2.o model_2.o parameter_parser_2.o parameters_2.o \
+	pset_2.o sequence_file_2.o sequence_map_2.o settings_2.o \
+	evidence_2.o site_2.o output_2.o
+
+HDRS = common_2.h \
+	data_2.h index_2.h logfile_2.h memory_mapped_file_2.h model_2.h \
+	parameter_parser_2.h parameters_2.h pset_2.h exit.h\
+	sequence_file_2.h sequence_map_2.h settings_2.h evidence_2.h site_2.h output_2.h
+
+.cpp.o:
+	$(CXX) -c -o $@ $(CXXFLAGS) $< 
+
+gmhmmp2: $(OBJS)
+	$(CXX) -o gmhmmp2 $(OBJS) $(LDFLAGS) $(LIBS)
+	strip gmhmmp2
+
+clean:
+	rm -f $(OBJS) gmhmmp2
+
+lic:
+	${MAKE} -f Makefile.aws gmhmmp2 CXXFLAGS="${CXXFLAGS} -DLICENSE=1" HDRS="${HDRS} check.h"
+	strip gmhmmp2
+
+distr:
+	mkdir -p gmhmmp2_${VER}
+	cp *.cpp *.h Makefile* README* gmhmmp2_${VER}
+	tar cf gmhmmp2_${VER}.tar gmhmmp2_${VER}
+	gzip -9 gmhmmp2_${VER}.tar
+	rm -rf gmhmmp2_${VER}
+
