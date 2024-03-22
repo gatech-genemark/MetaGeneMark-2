@@ -8,7 +8,7 @@ Georgia Institute of Technology, Atlanta, Georgia, USA
 
 *joint last authors
 
-Reference: PAPER LINK
+Reference: https://www.biorxiv.org/content/10.1101/2022.07.25.500264v1
 
 
 ## Overview
