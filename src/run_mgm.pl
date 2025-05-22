@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 # -----------------------
 # Alex Lomsadze
 # GeorgiaTech 2020
@@ -132,8 +132,8 @@ MergeMGM_Predictions( \%data, $out_11, $out_4, $out_file );
 # }
 
 
-# MergeMGM_FASTAs( \%data, $nt_11, $nt_4, $nt_file ) if $nt_file;
-# MergeMGM_FASTAs( \%data, $aa_11, $aa_4, $aa_file ) if $aa_file;
+MergeMGM_FASTAs( \%data, $nt_11, $nt_4, $nt_file ) if $nt_file;
+MergeMGM_FASTAs( \%data, $aa_11, $aa_4, $aa_file ) if $aa_file;
 
 CleanTMP() if $clean;
 
@@ -154,7 +154,24 @@ sub CleanTMP
 # ----------------------
 sub MergeMGM_FASTAs
 {
-	;
+	my $ref = shift;
+	my $fname_11 = shift;
+	my $fname_4 = shift;
+	my $fname = shift;
+
+    print "# creating FASTA output ...\n" if $verbose;
+
+    open( my $OUT, ">", $fname ) or die "error on open file $fname\n";
+    open( my $IN_11, $fname_11 ) or die "error on open file $fname_11\n";
+    open( my $IN_4, $fname_4 ) or die "error on open file $fname_4\n";
+
+    for my $file ($IN_11, $IN_4) {
+        while (my $line = <$file>) {
+            print $OUT $line;
+        }
+        close $file;
+    }
+    close $OUT;
 }
 # ----------------------
 sub MergeMGM_Predictions
