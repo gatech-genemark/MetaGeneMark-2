@@ -9,7 +9,7 @@
 # MAC OS user based config
 # ====================================================
 
-VER=1.06
+VER=1.23
 
 CXX = g++
 CXXFLAGS = -O2  -Wall -I. 
@@ -40,15 +40,4 @@ gmhmmp2: $(OBJS)
 
 clean:
 	rm -f $(OBJS) gmhmmp2
-
-lic:
-	${MAKE} -f Makefile.macos gmhmmp2 CXXFLAGS="${CXXFLAGS} -DLICENSE=1" HDRS="${HDRS} check.h"
-	strip gmhmmp2
-
-distr:
-	mkdir -p gmhmmp2_${VER}
-	cp *.cpp *.h Makefile* README* gmhmmp2_${VER}
-	tar cf gmhmmp2_${VER}.tar gmhmmp2_${VER}
-	gzip -9 gmhmmp2_${VER}.tar
-	rm -rf gmhmmp2_${VER}
 

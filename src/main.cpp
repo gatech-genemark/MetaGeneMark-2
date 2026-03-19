@@ -38,10 +38,6 @@
 #include "model_2.h"
 #include "output_2.h"
 
-#ifdef LICENSE
-#include "check.h"
-#endif
-
 void set_correct_gms2_start_models(Pset &pset, GMS2_GROUP gms2_group, int bac_arc) {
     
     // archaea
@@ -232,22 +228,8 @@ int main( int argc, char** argv )
 	{
 		std::string VERSION = "1.23";
 
-#ifdef LICENSE
-		VERSION += "_lic";
-#endif
-
 		Logger        logger;
 		Settings      settings( argc, argv, &logger, VERSION );
-
-#ifdef LICENSE
-		// to do:
-		// move to new version of OS independent key implementation
-		// function should return true/false and support verbose mode
-		// function should be called from settings after parsing of parameters and before usage
-
-		char path_to_key[] = "";
-		check_timekey(path_to_key);
-#endif
 
 		SequenceFile  sequence( settings, &logger );
 		Evidence      evidence( settings, &logger );

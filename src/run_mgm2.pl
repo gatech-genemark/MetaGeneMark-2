@@ -132,8 +132,8 @@ MergeMGM_Predictions( \%data, $out_11, $out_4, $out_file );
 # }
 
 
-# MergeMGM_FASTAs( \%data, $nt_11, $nt_4, $nt_file ) if $nt_file;
-# MergeMGM_FASTAs( \%data, $aa_11, $aa_4, $aa_file ) if $aa_file;
+MergeMGM_FASTAs( $out_file, $nt_11, $nt_4, $nt_file ) if $nt_file;
+MergeMGM_FASTAs( $out_file, $aa_11, $aa_4, $aa_file ) if $aa_file;
 
 CleanTMP() if $clean;
 
@@ -152,9 +152,63 @@ sub CleanTMP
 	rmdir $tmpf;
 }
 # ----------------------
+sub LoadFASTA
+{
+	my $fname = shift;
+
+	my %h = ();
+	my $id = '';
+
+	open ( my $IN, $fname ) or die "error on open file $fname: $!\n";
+	while(<$IN>)
+	{
+		if ( /^>(\S+)_\d+\s/ )
+		{
+			$id = $1;
+		}
+		
+		$h{$id} .= $_;
+	}
+	close $IN;
+
+	return %h;
+}
+# ----------------------
 sub MergeMGM_FASTAs
 {
-	;
+	my $coord_merged = shift;
+	my $fasta_11 = shift;
+	my $fasta_4 = shift;
+	my $fname_out = shift;
+
+	my %seq_11 = LoadFASTA($fasta_11);
+	my %seq_4 = LoadFASTA($fasta_4);
+
+	open( my $IN, $coord_merged ) or die "error on open file $coord_merged: $!\n";
+	open( my $OUT, ">", $fname_out ) or die "error on open file $fname_out: $!\n";
+
+	while(<$IN>)
+	{
+		if ( /# seqid:\s+(\S+)\s+genetic code:\s+(\d+)/ )
+		{
+			my $sid = $1;
+			my $gcode = $2;
+
+			if ($gcode == 11)
+			{
+				print $OUT $seq_11{$sid};
+			}
+			elsif ($gcode == 4)
+			{
+				print $OUT $seq_4{$sid};
+			}
+			else
+				{die "error, unexpected line format found: $_"; }
+		}
+	}
+
+	close $OUT;
+	close $IN;
 }
 # ----------------------
 sub MergeMGM_Predictions
