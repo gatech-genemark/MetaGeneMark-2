@@ -43,7 +43,7 @@ my $MIN_LOGODD_DELTA_FOR_4 = 10;
 my $MIN_LOGODD_FOR_NOT_11 = 20;
 
 # -----------------------
-my $VERSION = "1.00";
+my $VERSION = "1.01";
 
 # required
 my $seq_file = '';

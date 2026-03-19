@@ -14,7 +14,7 @@ VER=1.23
 CXX = g++
 CXXFLAGS = -O2 -Wall -I. -I/usr/include/boost/
 LIBS = -L/usr/lib/ -lboost_program_options -lboost_iostreams 
-LDFLAGS = -lm  -lstdc++  -static
+LDFLAGS = -lm -lstdc++ -static
 
 SRCS = main.cpp \
 	data_2.cpp model_2.cpp parameter_parser_2.cpp parameters_2.cpp \
